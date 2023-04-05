@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:33:12 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/04 15:21:00 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:33:41 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_philo
 	unsigned int		id;
 	unsigned int		nb_meals;
 	unsigned int		last_meal;
-	unsigned int		is_dead;
 	pthread_t			thread;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
@@ -55,19 +54,25 @@ typedef struct s_program
 	unsigned int	time_to_die;
 	unsigned int	time_to_eat;
 	unsigned int	time_to_sleep;
-	unsigned int	nb_eat;
+	int				nb_eat;
 	unsigned int	full_meals;
+	unsigned int	is_dead;
 	t_philo			*philo;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	full_meals_mutex;
+	pthread_mutex_t	is_dead_mutex;
 }	t_program;
 
-int			parsing(int argc, char **argv);
 int			ft_atoi(const char *nptr);
-long int	get_timestamp(t_program *data);
-long int	get_time(void);
-void		print_status(t_program *data, long int timestamp, int philo, int state);
+int			parsing(int argc, char **argv);
+void		init_mutexes(t_program *data);
+void		init_philos(t_program *data);
+void		init_threads(t_program *data);
 void		philosophers(t_program *data);
+void		print_status(t_program *data, long int timestamp, int philo, int state);
 void		*routine(void *philo);
+long int	get_time(void);
+long int	get_timestamp(t_program *data);
 
 #endif

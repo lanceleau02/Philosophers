@@ -6,7 +6,7 @@
 #    By: laprieur <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/14 09:45:27 by laprieur          #+#    #+#              #
-#    Updated: 2023/04/04 13:24:37 by laprieur         ###   ########.fr        #
+#    Updated: 2023/04/05 14:15:52 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,13 @@ MANDATORY_NAME	:=	philo
 #          INGREDIENTS          #
 #-------------------------------#
 
-MANDATORY		:=	src/main.c				\
+MANDATORY		:=	src/init.c				\
+					src/main.c				\
 					src/parsing.c			\
 					src/philosophers.c		\
 					src/philosophers_utils.c\
 					src/routine.c			\
+					src/utils.c				\
 
 MANDATORY_OBJS	:=	$(MANDATORY:%.c=.build/%.o)
 DEPS			:=	$(MANDATORY_OBJS:%.o=%.d)

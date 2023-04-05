@@ -6,19 +6,45 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:59:34 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/04 15:35:58 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:31:25 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+static int	check_death(t_philo *philo)
+{
+	long int	current_time;
+
+	current_time = get_timestamp(philo->data);
+	pthread_mutex_lock(&philo->data->is_dead_mutex);
+	if (philo->data->is_dead == 1)
+	{
+		pthread_mutex_unlock(&philo->data->is_dead_mutex);
+		return (1);
+	}
+	if (current_time > (philo->last_meal + (philo->data->time_to_die / 1000)))
+	{
+		pthread_mutex_lock(&philo->data->print_mutex);
+		printf("%s%ldms %d died \U0001F480\033[0m\n", RED, get_timestamp(philo->data), philo->id);
+		pthread_mutex_unlock(&philo->data->print_mutex);
+		philo->data->is_dead = 1;
+		pthread_mutex_unlock(&philo->data->is_dead_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->data->is_dead_mutex);
+	return (0);
+}
+
 static void	fork_pickup(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
+	check_death(philo);
 	print_status(philo->data, get_timestamp(philo->data), philo->id, FORK);
 	if (philo->data->nb_philo != 1)
 	{
 		pthread_mutex_lock(philo->right_fork);
+		check_death(philo);
 		print_status(philo->data, get_timestamp(philo->data), philo->id, FORK);
 	}
 }
@@ -35,28 +61,51 @@ void	*routine(void *philosopher)
 	t_philo	*philo;
 
 	philo = (t_philo *)philosopher;
+	if (philo->data->nb_philo == 1)
+	{
+		print_status(philo->data, get_timestamp(philo->data), philo->id, FORK);
+		usleep(philo->data->time_to_die);
+		print_status(philo->data, get_timestamp(philo->data), philo->id, DEAD);
+		return ;
+	}
 	if (philo->id % 2 == 0)
 		usleep(500);
-	while (philo->data->full_meals <= philo->data->nb_eat)
+	while (1)
 	{
-		if (philo->nb_meals == philo->data->nb_eat)
+		pthread_mutex_lock(&philo->data->full_meals_mutex);
+		if (check_death(philo) == 1)
+			break ;
+		if (philo->nb_meals == (unsigned int)philo->data->nb_eat)
 		{
 			philo->data->full_meals++;
 			break ;
 		}
-		if (philo->data->nb_philo == 1)
-		{
-			fork_pickup(philo);
-			print_status(philo->data, get_timestamp(philo->data), philo->id, DEAD);
-			break ;
-		}
+		pthread_mutex_unlock(&philo->data->full_meals_mutex);
+		fork_pickup(philo);
 		print_status(philo->data, get_timestamp(philo->data), philo->id, EAT);
 		philo->nb_meals++;
+		philo->last_meal = get_timestamp(philo->data);
 		usleep(philo->data->time_to_eat);
 		fork_putdown(philo);
+		if (check_death(philo) == 1)
+			break ;
 		print_status(philo->data, get_timestamp(philo->data), philo->id, SLEEP);
 		usleep(philo->data->time_to_sleep);
+		if (check_death(philo) == 1) // enlever si pas nescessaire
+			break ;
 		print_status(philo->data, get_timestamp(philo->data), philo->id, THINK);
 	}
+	pthread_mutex_unlock(&philo->data->full_meals_mutex);
 	return (NULL);
 }
+/*
+ft_sleep(philo)
+{
+	// reperer temps actuel et le temps a attendre
+	while (sur le temps)
+	{
+		usleep(500);
+		if (philomort)
+			break;
+	}
+}*/
