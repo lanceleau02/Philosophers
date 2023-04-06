@@ -6,13 +6,13 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:13:50 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/05 16:09:11 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/06 14:16:26 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	print_status(t_program *data, long timestamp, int philo, int state)
+void	print_status(t_program *data, long int timestamp, int philo, int state)
 {
 	pthread_mutex_lock(&data->is_dead_mutex);
 	if (data->is_dead == 1)
@@ -77,6 +77,8 @@ void	print_status(t_program *data, long timestamp, int philo, int state)
 		printf("%s%ldms %d died \U0001F480\033[0m\n", RED, timestamp, philo);
 		pthread_mutex_unlock(&data->print_mutex);
 	}
+	else if (state == END)
+		printf("%sEveryone ate ! \U00002705\033[0m\n", GREEN);
 }
 
 void	philosophers(t_program *data)
@@ -84,4 +86,7 @@ void	philosophers(t_program *data)
 	init_philos(data);
 	init_mutexes(data);
 	init_threads(data);
+	if (data->full_meals == data->nb_philo && data->is_dead != 1)
+		print_status(data, 0, 0, END);
+	destroy_mutexes(data);
 }

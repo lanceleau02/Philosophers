@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:33:12 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/05 16:33:41 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/06 14:09:11 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define BLUE "\x1B[34m"
 # define WHITE "\x1B[37m"
 # define RED "\x1B[31m"
+# define GREEN "\x1B[32m"
 
 typedef enum e_state
 {
@@ -34,6 +35,7 @@ typedef enum e_state
 	SLEEP,
 	THINK,
 	DEAD,
+	END,
 }	t_state;
 
 typedef struct s_philo
@@ -66,6 +68,7 @@ typedef struct s_program
 
 int			ft_atoi(const char *nptr);
 int			parsing(int argc, char **argv);
+void		destroy_mutexes(t_program *data);
 void		init_mutexes(t_program *data);
 void		init_philos(t_program *data);
 void		init_threads(t_program *data);
