@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:33:12 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/06 14:09:11 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:00:04 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_program
 	unsigned int	time_to_die;
 	unsigned int	time_to_eat;
 	unsigned int	time_to_sleep;
-	int				nb_eat;
+	unsigned int	nb_eat;
 	unsigned int	full_meals;
 	unsigned int	is_dead;
 	t_philo			*philo;
@@ -66,14 +66,24 @@ typedef struct s_program
 	pthread_mutex_t	is_dead_mutex;
 }	t_program;
 
+int			death_watch(t_philo *philo);
 int			ft_atoi(const char *nptr);
 int			parsing(int argc, char **argv);
 void		destroy_mutexes(t_program *data);
+void		fork_pickup(t_philo *philo);
+void		fork_putdown(t_philo *philo);
 void		init_mutexes(t_program *data);
 void		init_philos(t_program *data);
 void		init_threads(t_program *data);
+void		is_eating(t_philo *philo);
+void		is_sleeping(t_philo *philo);
+void		is_thinking(t_philo *philo);
+void		mortal_sleep_guardian(t_philo *philo);
+void		mortal_eat_guardian(t_philo *philo);
 void		philosophers(t_program *data);
-void		print_status(t_program *data, long int timestamp, int philo, int state);
+void		print(t_program *data, long int timestamp, int philo, int state);
+void		print_bis(t_program *data, long int timestamp, int philo,
+				int state);
 void		*routine(void *philo);
 long int	get_time(void);
 long int	get_timestamp(t_program *data);
