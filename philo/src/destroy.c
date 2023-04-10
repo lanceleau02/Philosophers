@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:55:20 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/06 15:28:10 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/10 17:46:53 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	destroy_mutexes(t_program *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->forks->fork_mutex);
 		i++;
 	}
 	pthread_mutex_destroy(&data->print_mutex);

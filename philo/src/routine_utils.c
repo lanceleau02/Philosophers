@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:10:46 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/07 16:03:05 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:10:05 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	death_watch(t_philo *philo)
 	return (0);
 }
 
-void	fork_pickup(t_philo *philo)
+/*void	fork_pickup(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
 	death_watch(philo);
@@ -53,7 +53,7 @@ void	fork_putdown(t_philo *philo)
 	if (philo->data->nb_philo != 1)
 		pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
-}
+}*/
 
 void	mortal_sleep_guardian(t_philo *philo)
 {

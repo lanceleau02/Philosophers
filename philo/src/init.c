@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:14:50 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/05 15:12:33 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:37:49 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_philos(t_program *data)
 		data->philo[i].last_meal = 0;
 		data->philo[i].left_fork = NULL;
 		data->philo[i].right_fork = NULL;
+		data->philo[i].nb_forks = 0;
 		data->philo[i].data = data;
 		i++;
 	}
@@ -37,11 +38,12 @@ void	init_mutexes(t_program *data)
 	pthread_mutex_init(&data->print_mutex, NULL);
 	pthread_mutex_init(&data->full_meals_mutex, NULL);
 	pthread_mutex_init(&data->is_dead_mutex, NULL);
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
+	data->forks = malloc(sizeof(t_forks) * data->nb_philo);
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		pthread_mutex_init(&data->forks[i], NULL);
+		data->forks[i].status = 0;
+		pthread_mutex_init(&data->forks[i].fork_mutex, NULL);
 		i++;
 	}
 	i = 0;

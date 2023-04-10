@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:33:12 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/07 16:00:04 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:22:05 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,21 @@ typedef enum e_state
 	END,
 }	t_state;
 
+typedef struct s_forks
+{
+	unsigned int	status;
+	pthread_mutex_t	fork_mutex;
+}	t_forks;
+
 typedef struct s_philo
 {
 	unsigned int		id;
 	unsigned int		nb_meals;
 	unsigned int		last_meal;
+	unsigned int		nb_forks;
 	pthread_t			thread;
-	pthread_mutex_t		*left_fork;
-	pthread_mutex_t		*right_fork;
+	t_forks				*left_fork;
+	t_forks				*right_fork;
 	struct s_program	*data;
 }	t_philo;
 
@@ -60,7 +67,7 @@ typedef struct s_program
 	unsigned int	full_meals;
 	unsigned int	is_dead;
 	t_philo			*philo;
-	pthread_mutex_t	*forks;
+	t_forks			*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	full_meals_mutex;
 	pthread_mutex_t	is_dead_mutex;
@@ -70,8 +77,8 @@ int			death_watch(t_philo *philo);
 int			ft_atoi(const char *nptr);
 int			parsing(int argc, char **argv);
 void		destroy_mutexes(t_program *data);
-void		fork_pickup(t_philo *philo);
-void		fork_putdown(t_philo *philo);
+/*void		fork_pickup(t_philo *philo);
+void		fork_putdown(t_philo *philo);*/
 void		init_mutexes(t_program *data);
 void		init_philos(t_program *data);
 void		init_threads(t_program *data);
