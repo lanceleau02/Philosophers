@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:27:44 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/06 15:55:05 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:49:30 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 static void	struct_init(t_program *data, char **argv)
 {
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	data->start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	data->start_time = get_time();
 	data->nb_philo = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);

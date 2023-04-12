@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:14:50 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/10 18:37:49 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:00:48 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_philos(t_program *data)
 	{
 		data->philo[i].id = i + 1;
 		data->philo[i].nb_meals = 0;
-		data->philo[i].last_meal = 0;
+		data->philo[i].last_meal = data->start_time;
 		data->philo[i].left_fork = NULL;
 		data->philo[i].right_fork = NULL;
 		data->philo[i].nb_forks = 0;

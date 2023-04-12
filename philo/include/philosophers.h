@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:33:12 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/10 18:22:05 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/12 10:26:13 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
-# include <time.h>
 # include <pthread.h>
 
 # define FALSE -1
@@ -27,6 +26,8 @@
 # define WHITE "\x1B[37m"
 # define RED "\x1B[31m"
 # define GREEN "\x1B[32m"
+
+struct s_program;
 
 typedef enum e_state
 {
@@ -48,8 +49,8 @@ typedef struct s_philo
 {
 	unsigned int		id;
 	unsigned int		nb_meals;
-	unsigned int		last_meal;
 	unsigned int		nb_forks;
+	long int			last_meal;
 	pthread_t			thread;
 	t_forks				*left_fork;
 	t_forks				*right_fork;

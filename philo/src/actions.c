@@ -6,13 +6,13 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 13:32:52 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/10 18:24:40 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/12 09:39:54 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	is_eating(t_philo *philo)
+static void	forks_checker(t_philo *philo)
 {
 	while (philo->nb_forks != 2)
 	{
@@ -35,7 +35,13 @@ void	is_eating(t_philo *philo)
 		}
 		pthread_mutex_unlock(&philo->right_fork->fork_mutex);
 	}
+}
+
+void	is_eating(t_philo *philo)
+{
+	forks_checker(philo);
 	print(philo->data, get_timestamp(philo->data), philo->id, EAT);
+	philo->nb_meals++;
 	philo->last_meal = get_timestamp(philo->data);
 	mortal_eat_guardian(philo);
 	philo->nb_forks = 0;
