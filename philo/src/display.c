@@ -6,15 +6,27 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:21:54 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/07 15:58:41 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:47:26 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+static int	check_philo_death(t_program *data)
+{
+	pthread_mutex_lock(&data->is_dead_mutex);
+	if (data->is_dead == 1)
+	{
+		pthread_mutex_unlock(&data->is_dead_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&data->is_dead_mutex);
+	return (0);
+}
+
 void	print(t_program *data, long int timestamp, int philo, int state)
 {
-	if (death_watch(data->philo) == 1)
+	if (check_philo_death(data) == 1)
 		return ;
 	else if (state == FORK)
 	{
@@ -41,7 +53,7 @@ void	print(t_program *data, long int timestamp, int philo, int state)
 
 void	print_bis(t_program *data, long int timestamp, int philo, int state)
 {
-	if (death_watch(data->philo) == 1)
+	if (check_philo_death(data) == 1)
 		return ;
 	else if (state == THINK)
 	{

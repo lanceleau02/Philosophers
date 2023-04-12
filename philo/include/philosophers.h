@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:33:12 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/12 10:26:13 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:52:38 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define RED "\x1B[31m"
 # define GREEN "\x1B[32m"
 
-struct s_program;
+struct	s_program;
 
 typedef enum e_state
 {
@@ -76,19 +76,18 @@ typedef struct s_program
 
 int			death_watch(t_philo *philo);
 int			ft_atoi(const char *nptr);
+int			init_mutexes(t_program *data);
+int			init_philos(t_program *data);
+int			init_threads(t_program *data);
 int			parsing(int argc, char **argv);
+int			str_is_digit(const char *str);
 void		destroy_mutexes(t_program *data);
-/*void		fork_pickup(t_philo *philo);
-void		fork_putdown(t_philo *philo);*/
-void		init_mutexes(t_program *data);
-void		init_philos(t_program *data);
-void		init_threads(t_program *data);
 void		is_eating(t_philo *philo);
 void		is_sleeping(t_philo *philo);
 void		is_thinking(t_philo *philo);
 void		mortal_sleep_guardian(t_philo *philo);
 void		mortal_eat_guardian(t_philo *philo);
-void		philosophers(t_program *data);
+int			philosophers(t_program *data);
 void		print(t_program *data, long int timestamp, int philo, int state);
 void		print_bis(t_program *data, long int timestamp, int philo,
 				int state);

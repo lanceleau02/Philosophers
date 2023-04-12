@@ -6,11 +6,25 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:59:34 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/10 17:29:18 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:39:08 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+static void	single_philosopher_handler(t_philo *philo)
+{
+	print(philo->data, get_timestamp(philo->data), philo->id, FORK);
+	usleep(philo->data->time_to_die * 1000);
+	print_bis(philo->data, get_timestamp(philo->data), philo->id, DEAD);
+}
+
+static void	update_full_meals(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->full_meals_mutex);
+	philo->data->full_meals++;
+	pthread_mutex_unlock(&philo->data->full_meals_mutex);
+}
 
 void	*routine(void *philosopher)
 {
@@ -19,9 +33,7 @@ void	*routine(void *philosopher)
 	philo = (t_philo *)philosopher;
 	if (philo->data->nb_philo == 1)
 	{
-		print(philo->data, get_timestamp(philo->data), philo->id, FORK);
-		usleep(philo->data->time_to_die * 1000);
-		print_bis(philo->data, get_timestamp(philo->data), philo->id, DEAD);
+		single_philosopher_handler(philo);
 		return (NULL);
 	}
 	if (philo->id % 2 == 0)
@@ -32,17 +44,11 @@ void	*routine(void *philosopher)
 			break ;
 		if (philo->nb_meals == philo->data->nb_eat)
 		{
-			pthread_mutex_lock(&philo->data->full_meals_mutex);
-			philo->data->full_meals++;
-			pthread_mutex_unlock(&philo->data->full_meals_mutex);
+			update_full_meals(philo);
 			break ;
 		}
 		is_eating(philo);
-		if (death_watch(philo) == 1)
-			break ;
 		is_sleeping(philo);
-		if (death_watch(philo) == 1)
-			break ;
 		is_thinking(philo);
 	}
 	return (NULL);

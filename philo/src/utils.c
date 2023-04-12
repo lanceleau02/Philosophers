@@ -6,11 +6,25 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:13:38 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/05 14:13:51 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:02:08 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	str_is_digit(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	ft_atoi(const char *nptr)
 {

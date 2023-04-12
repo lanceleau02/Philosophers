@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:10:46 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/12 10:20:36 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:30:06 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,6 @@ int	death_watch(t_philo *philo)
 	return (0);
 }
 
-/*void	fork_pickup(t_philo *philo)
-{
-	pthread_mutex_lock(philo->left_fork);
-	death_watch(philo);
-	print(philo->data, get_timestamp(philo->data), philo->id, FORK);
-	if (philo->data->nb_philo != 1)
-	{
-		pthread_mutex_lock(philo->right_fork);
-		death_watch(philo);
-		print(philo->data, get_timestamp(philo->data), philo->id, FORK);
-	}
-}
-
-void	fork_putdown(t_philo *philo)
-{
-	if (philo->data->nb_philo != 1)
-		pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_unlock(philo->left_fork);
-}*/
-
 void	mortal_sleep_guardian(t_philo *philo)
 {
 	long int	sleep_start;
@@ -68,7 +48,7 @@ void	mortal_sleep_guardian(t_philo *philo)
 	{
 		if (death_watch(philo) == 1)
 			break ;
-		usleep(100);
+		usleep(500);
 	}
 }
 
@@ -81,6 +61,6 @@ void	mortal_eat_guardian(t_philo *philo)
 	{
 		if (death_watch(philo) == 1)
 			break ;
-		usleep(100);
+		usleep(500);
 	}
 }

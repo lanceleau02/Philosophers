@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:27:44 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/11 13:49:30 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:28:48 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(int argc, char **argv)
 	if (parsing(argc, argv) == 1)
 		return (1);
 	struct_init(&data, argv);
-	philosophers(&data);
+	if (philosophers(&data) == 1)
+		return (1);
 	free(data.philo);
 	free(data.forks);
 	return (0);
