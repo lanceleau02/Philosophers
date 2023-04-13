@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:21:54 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/12 13:47:26 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/13 12:09:23 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,21 @@ static int	check_philo_death(t_program *data)
 
 void	print(t_program *data, long int timestamp, int philo, int state)
 {
-	if (check_philo_death(data) == 1)
-		return ;
-	else if (state == FORK)
+	if (state == FORK && check_philo_death(data) == 0)
 	{
 		pthread_mutex_lock(&data->print_mutex);
 		printf("%s%ldms %d has taken a fork \U0001F374\033[0m\n",
 			CYAN, timestamp, philo);
 		pthread_mutex_unlock(&data->print_mutex);
 	}
-	else if (state == EAT)
+	else if (state == EAT && check_philo_death(data) == 0)
 	{
 		pthread_mutex_lock(&data->print_mutex);
 		printf("%s%ldms %d is eating \U0001F35D\033[0m\n",
 			YELLOW, timestamp, philo);
 		pthread_mutex_unlock(&data->print_mutex);
 	}
-	else if (state == SLEEP)
+	else if (state == SLEEP && check_philo_death(data) == 0)
 	{
 		pthread_mutex_lock(&data->print_mutex);
 		printf("%s%ldms %d is sleeping \U0001F4A4\033[0m\n",
@@ -53,9 +51,7 @@ void	print(t_program *data, long int timestamp, int philo, int state)
 
 void	print_bis(t_program *data, long int timestamp, int philo, int state)
 {
-	if (check_philo_death(data) == 1)
-		return ;
-	else if (state == THINK)
+	if (state == THINK && check_philo_death(data) == 0)
 	{
 		pthread_mutex_lock(&data->print_mutex);
 		printf("%s%ldms %d is thinking \U0001F4AD\033[0m\n",
@@ -68,7 +64,7 @@ void	print_bis(t_program *data, long int timestamp, int philo, int state)
 		printf("%s%ldms %d died \U0001F480\033[0m\n", RED, timestamp, philo);
 		pthread_mutex_unlock(&data->print_mutex);
 	}
-	else if (state == END)
+	else if (state == END && check_philo_death(data) == 0)
 	{
 		pthread_mutex_lock(&data->print_mutex);
 		printf("%sEveryone ate ! \U00002705\033[0m\n", GREEN);

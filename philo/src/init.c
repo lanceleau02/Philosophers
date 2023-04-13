@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 14:14:50 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/12 15:48:40 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:15:55 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	init_threads(t_program *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		ret = pthread_create(&data->philo[i].thread, NULL, &routine, &data->philo[i]);
+		ret = pthread_create(&data->philo[i].thread, NULL,
+				&routine, &data->philo[i]);
 		if (ret != 0)
 			return (1);
 		i++;
