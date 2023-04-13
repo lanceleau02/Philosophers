@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:33:12 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/12 15:52:38 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:16:20 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int			init_mutexes(t_program *data);
 int			init_philos(t_program *data);
 int			init_threads(t_program *data);
 int			parsing(int argc, char **argv);
+int			philosophers(t_program *data);
 int			str_is_digit(const char *str);
 void		destroy_mutexes(t_program *data);
 void		is_eating(t_philo *philo);
@@ -87,7 +88,6 @@ void		is_sleeping(t_philo *philo);
 void		is_thinking(t_philo *philo);
 void		mortal_sleep_guardian(t_philo *philo);
 void		mortal_eat_guardian(t_philo *philo);
-int			philosophers(t_program *data);
 void		print(t_program *data, long int timestamp, int philo, int state);
 void		print_bis(t_program *data, long int timestamp, int philo,
 				int state);
