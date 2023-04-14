@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 10:53:19 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/12 15:02:56 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/14 15:59:09 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	parsing(int argc, char **argv)
 		printf("Error\nPlease enter a valid time to eat.\n");
 	else if (argv[4] != NULL && (ft_atoi(argv[4]) == FALSE
 			|| ft_atoi(argv[4]) <= 0 || str_is_digit(argv[4]) == 1))
-		printf("Error\nPlease enter a valid time to spleep.\n");
+		printf("Error\nPlease enter a valid time to sleep.\n");
 	else if (argv[5] != NULL && (ft_atoi(argv[5]) == FALSE
 			|| ft_atoi(argv[5]) < 0 || str_is_digit(argv[5]) == 1))
 		printf("Error\nPlease enter a valid number of times each philosopher \

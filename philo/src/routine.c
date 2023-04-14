@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:59:34 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/12 13:39:08 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:58:14 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	single_philosopher_handler(t_philo *philo)
 {
-	print(philo->data, get_timestamp(philo->data), philo->id, FORK);
+	print(philo->data, philo->id, FORK);
 	usleep(philo->data->time_to_die * 1000);
-	print_bis(philo->data, get_timestamp(philo->data), philo->id, DEAD);
+	print_bis(philo->data, philo->id, DEAD);
 }
 
 static void	update_full_meals(t_philo *philo)

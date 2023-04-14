@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:10:46 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/13 12:00:44 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:58:48 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	death_watch(t_philo *philo)
 		pthread_mutex_lock(&philo->data->is_dead_mutex);
 		philo->data->is_dead = 1;
 		pthread_mutex_unlock(&philo->data->is_dead_mutex);
-		print_bis(philo->data, get_timestamp(philo->data), philo->id, DEAD);
+		print_bis(philo->data, philo->id, DEAD);
 		return (1);
 	}
 	return (0);

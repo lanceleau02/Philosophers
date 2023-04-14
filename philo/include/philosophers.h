@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:33:12 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/13 16:16:20 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:55:45 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,8 @@ void		is_sleeping(t_philo *philo);
 void		is_thinking(t_philo *philo);
 void		mortal_sleep_guardian(t_philo *philo);
 void		mortal_eat_guardian(t_philo *philo);
-void		print(t_program *data, long int timestamp, int philo, int state);
-void		print_bis(t_program *data, long int timestamp, int philo,
-				int state);
+void		print(t_program *data, int philo, int state);
+void		print_bis(t_program *data, int philo, int state);
 void		*routine(void *philo);
 long int	get_time(void);
 long int	get_timestamp(t_program *data);

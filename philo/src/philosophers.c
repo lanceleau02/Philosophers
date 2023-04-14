@@ -6,7 +6,7 @@
 /*   By: laprieur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:13:50 by laprieur          #+#    #+#             */
-/*   Updated: 2023/04/12 15:27:40 by laprieur         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:57:50 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	philosophers(t_program *data)
 		|| init_threads(data) == 1)
 		return (1);
 	if (data->full_meals == data->nb_philo && data->is_dead != 1)
-		print_bis(data, 0, 0, END);
+		print_bis(data, 0, END);
 	destroy_mutexes(data);
 	return (0);
 }
